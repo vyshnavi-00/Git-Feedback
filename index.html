@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Git Introduction | Feedback</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #1b1f24;
+    --muted: #6b7280;
+    --accent: #f05133; /* git-orange */
+    --accent-hover: #d8431f;
+    --border: #e3e5e8;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  .logo {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--accent); color: white; font-weight: 700; font-size: 22px;
+    margin-bottom: 14px;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  header p { color: var(--muted); margin: 0; font-size: 14px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 18px;
+  }
+  .question { margin-bottom: 20px; }
+  .question:last-child { margin-bottom: 0; }
+  .question label.q-text {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt {
+    position: relative;
+  }
+  .opt input { position: absolute; opacity: 0; }
+  .opt span {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  .opt input:checked + span {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+  }
+  textarea:focus, .opt span:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button[type="submit"]:hover { background: var(--accent-hover); }
+  button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .error-banner {
+    display: none;
+    background: #fdecea;
+    border: 1px solid #f5c2bc;
+    color: #92281f;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+
+  #thankyou { display: none; text-align: center; padding: 48px 24px; }
+  #thankyou .check {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: #e8f6ee; color: #1a9d55; font-size: 32px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+  }
+  #thankyou h2 { margin: 0 0 6px; }
+  #thankyou p { color: var(--muted); margin: 0; }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --card: #1e2126;
+      --text: #edeef0;
+      --muted: #9aa0a6;
+      --border: #2c2f34;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo">⌥</div>
+    <h1>Git Introduction</h1>
+    <p>We'd love your feedback on the session</p>
+  </header>
+
+  <div class="error-banner" id="errorBanner">
+    Something went wrong submitting your feedback. Please try again.
+  </div>
+
+  <form id="feedbackForm">
+
+    <div class="card">
+      <p class="section-title">Session Content</p>
+      <div class="question">
+        <label class="q-text">Was the objective of the session clear?</label>
+        <div class="options" data-name="objective_clear">
+          <label class="opt"><input type="radio" name="objective_clear" value="Yes" required><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="objective_clear" value="No"><span>No</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text">How informative was the session?</label>
+        <div class="options" data-name="informative">
+          <label class="opt"><input type="radio" name="informative" value="Excellent" required><span>Excellent</span></label>
+          <label class="opt"><input type="radio" name="informative" value="Good"><span>Good</span></label>
+          <label class="opt"><input type="radio" name="informative" value="Average"><span>Average</span></label>
+          <label class="opt"><input type="radio" name="informative" value="Poor"><span>Poor</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text">Did the session meet your expectations?</label>
+        <div class="options" data-name="met_expectations">
+          <label class="opt"><input type="radio" name="met_expectations" value="Yes" required><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="met_expectations" value="Partially"><span>Partially</span></label>
+          <label class="opt"><input type="radio" name="met_expectations" value="No"><span>No</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Organization</p>
+      <div class="question">
+        <label class="q-text">How well was the session organized?</label>
+        <div class="options" data-name="organized">
+          <label class="opt"><input type="radio" name="organized" value="Excellent" required><span>Excellent</span></label>
+          <label class="opt"><input type="radio" name="organized" value="Good"><span>Good</span></label>
+          <label class="opt"><input type="radio" name="organized" value="Average"><span>Average</span></label>
+          <label class="opt"><input type="radio" name="organized" value="Poor"><span>Poor</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text">Was the time management proper?</label>
+        <div class="options" data-name="time_management">
+          <label class="opt"><input type="radio" name="time_management" value="Yes" required><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="time_management" value="No"><span>No</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Speaker / Presenter</p>
+      <div class="question">
+        <label class="q-text">How was the quality of the speaker/presenter?</label>
+        <div class="options" data-name="speaker_quality">
+          <label class="opt"><input type="radio" name="speaker_quality" value="Excellent" required><span>Excellent</span></label>
+          <label class="opt"><input type="radio" name="speaker_quality" value="Good"><span>Good</span></label>
+          <label class="opt"><input type="radio" name="speaker_quality" value="Average"><span>Average</span></label>
+          <label class="opt"><input type="radio" name="speaker_quality" value="Poor"><span>Poor</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text">Was the presentation clear and understandable?</label>
+        <div class="options" data-name="presentation_clear">
+          <label class="opt"><input type="radio" name="presentation_clear" value="Yes" required><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="presentation_clear" value="No"><span>No</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Facilities</p>
+      <div class="question">
+        <label class="q-text">Venue arrangements:</label>
+        <div class="options" data-name="venue">
+          <label class="opt"><input type="radio" name="venue" value="Excellent" required><span>Excellent</span></label>
+          <label class="opt"><input type="radio" name="venue" value="Good"><span>Good</span></label>
+          <label class="opt"><input type="radio" name="venue" value="Average"><span>Average</span></label>
+          <label class="opt"><input type="radio" name="venue" value="Poor"><span>Poor</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text">Audio/visual quality:</label>
+        <div class="options" data-name="av_quality">
+          <label class="opt"><input type="radio" name="av_quality" value="Excellent" required><span>Excellent</span></label>
+          <label class="opt"><input type="radio" name="av_quality" value="Good"><span>Good</span></label>
+          <label class="opt"><input type="radio" name="av_quality" value="Average"><span>Average</span></label>
+          <label class="opt"><input type="radio" name="av_quality" value="Poor"><span>Poor</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">Overall Feedback</p>
+      <div class="question">
+        <label class="q-text">Overall rating of the session:</label>
+        <div class="options" data-name="overall_rating">
+          <label class="opt"><input type="radio" name="overall_rating" value="5" required><span>5</span></label>
+          <label class="opt"><input type="radio" name="overall_rating" value="4"><span>4</span></label>
+          <label class="opt"><input type="radio" name="overall_rating" value="3"><span>3</span></label>
+          <label class="opt"><input type="radio" name="overall_rating" value="2"><span>2</span></label>
+          <label class="opt"><input type="radio" name="overall_rating" value="1"><span>1</span></label>
+        </div>
+      </div>
+      <div class="question">
+        <label class="q-text" for="liked_most">What did you like most about the session?</label>
+        <textarea id="liked_most" name="liked_most" placeholder="Optional"></textarea>
+      </div>
+    </div>
+
+    <button type="submit" id="submitBtn">Submit Feedback</button>
+  </form>
+
+  <div id="thankyou">
+    <div class="check">✓</div>
+    <h2>Thank You!</h2>
+    <p>Your feedback has been recorded.</p>
+  </div>
+
+</div>
+
+<!-- Supabase client (loaded from jsDelivr CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // ---- CONFIGURE THESE TWO VALUES ----
+  // Supabase → Project Settings → API
+      // the "anon public" key
+  // -------------------------------------
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const form = document.getElementById("feedbackForm");
+  const thankyou = document.getElementById("thankyou");
+  const errorBanner = document.getElementById("errorBanner");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorBanner.style.display = "none";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting…";
+
+    const data = new FormData(form);
+    const payload = {
+      objective_clear: data.get("objective_clear"),
+      informative: data.get("informative"),
+      met_expectations: data.get("met_expectations"),
+      organized: data.get("organized"),
+      time_management: data.get("time_management"),
+      speaker_quality: data.get("speaker_quality"),
+      presentation_clear: data.get("presentation_clear"),
+      venue: data.get("venue"),
+      av_quality: data.get("av_quality"),
+      overall_rating: parseInt(data.get("overall_rating"), 10),
+      liked_most: data.get("liked_most") || null,
+    };
+
+    try {
+      const { error } = await supabaseClient
+        .from("git_intro_feedback")
+        .insert([payload]);
+
+      if (error) throw error;
+
+      form.style.display = "none";
+      thankyou.style.display = "block";
+    } catch (err) {
+      console.error("Submit failed:", err);
+      errorBanner.style.display = "block";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Feedback";
+    }
+  });
+</script>
+</body>
+</html>
+
